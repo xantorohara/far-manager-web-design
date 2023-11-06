@@ -1,0 +1,20 @@
+@use 'includes' as *;
+
+ul.func-buttons {
+  list-style: none;
+  display: grid;
+  grid-gap: $sx;
+  grid-auto-flow: column;
+
+  >li {
+    counter-increment: li;
+    background-color: teal;
+    color: black;
+
+    &:before {
+      content: counter(li);
+      background-color: black;
+      color: silver;
+    }
+  }
+}

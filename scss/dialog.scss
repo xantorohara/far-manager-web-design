@@ -1,0 +1,126 @@
+@use 'includes' as *;
+
+@mixin dialog-colored($background-color, $color) {
+  background-color: $background-color;
+  color: $color;
+
+  .inner {
+    @include double-border($color);
+  }
+
+  .title, .total {
+    > span {
+      background-color: $background-color;
+    }
+  }
+}
+
+.modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: (2 * $sy) (4 * $sx);
+  display: grid;
+  place-items: center;
+  z-index: 3;
+
+  .dialog {
+    @include popup-shadow;
+    padding: $sy (2 * $sx);
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
+    grid-template-columns: 1fr;
+
+    .inner {
+      grid-area: 1 / 1 / 4 / 2;
+      margin: (0.5 * $sy);
+
+      > div {
+        padding: 0 $sx;
+      }
+
+      text-align: center;
+    }
+
+    &.normal {
+      @include dialog-colored(silver, black);
+
+      .button.default {
+        background-color: teal;
+      }
+    }
+
+    &.alert {
+      @include dialog-colored(maroon, white);
+
+      .button.default {
+        background-color: silver;
+        color: black;
+      }
+    }
+
+    &.select {
+      @include dialog-colored(teal, white);
+
+      .inner {
+        text-align: left;
+
+        > div {
+          padding-left: (4 * $sx);
+
+          &:hover {
+            background-color: black;
+          }
+        }
+      }
+    }
+
+    &.help {
+      @include dialog-colored(teal, black);
+      place-self: stretch;
+      padding: 0 0;
+
+      .inner {
+        text-align: left;
+
+        > div:first-child {
+          text-align: center;
+          color: white;
+        }
+      }
+
+      .title {
+        color: black;
+        top: 0;
+      }
+      ul {
+        list-style: none;
+        li {
+          padding-left: $sx;
+        }
+      }
+    }
+
+    .title, .total {
+      white-space: nowrap;
+      text-align: center;
+      padding: 0 (2 * $sx + $dx) 0 (2 * $sx + $dxr);
+      z-index: 1;
+      grid-area: 1 / 1 / 2 / 2;
+
+      > span {
+        padding: 0 $sx;
+      }
+    }
+
+    .total {
+      grid-area: 3 / 1 / 4 / 2;
+    }
+  }
+
+  hr {
+    grid-column: 1/-1;
+  }
+}

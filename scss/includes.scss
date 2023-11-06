@@ -1,0 +1,21 @@
+@use 'sass:math';
+
+$sx: 1ch;
+$sy: 1rem * 1.2;
+$border-size: 0.1 * $sy;
+$dx: math.div(36, 66) * $sx;
+$dxr: $sx - $dx - 0.1 * $sx;
+$dy: math.div(76, 144) * $sy;
+$dyr: $sy - $dy - 0.1 * $sy;
+
+
+@mixin double-border($color) {
+  padding: $dyr $dxr;
+  border: $border-size solid $color;
+  outline-offset: $border-size;
+  outline: solid $border-size $color;
+}
+
+@mixin popup-shadow {
+  box-shadow: (2 * $sx) $sy #000000CC;
+}

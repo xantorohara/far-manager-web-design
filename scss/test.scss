@@ -1,0 +1,38 @@
+@use 'includes' as *;
+
+.test {
+  display: inline-block;
+  position: relative;
+  //border: dashed white 1px;
+  padding: $sy $sx;
+}
+
+@mixin char-rect($top, $left, $color) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  width: $sx;
+  height: $sy;
+  border: solid $color 1px;
+  box-sizing: border-box;
+}
+
+.char-rect0 {
+  @include char-rect(0, 0, red);
+}
+
+.char-rect1 {
+  @include char-rect($sy, $sx, lime);
+}
+
+.char-rect2 {
+  @include char-rect(2 * $sy, 2 * $sx, dodgerblue);
+}
+
+.char-rect3 {
+  @include char-rect(3 * $sy, 3 * $sx, magenta);
+}
+
+.char-rect4 {
+  @include char-rect(4 * $sy, 4 * $sx, yellow);
+}

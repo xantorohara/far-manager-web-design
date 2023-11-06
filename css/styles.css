@@ -1,0 +1,416 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: Consolas, monospace;
+  font-size: 15.5px;
+  line-height: 1.2rem;
+  user-select: none;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+}
+
+b {
+  font-weight: normal;
+  color: yellow;
+}
+
+hr {
+  border: none;
+  margin: 0.6rem -0.3545454545ch;
+  border-top-style: solid;
+  border-top-width: 0.12rem;
+  border-top-color: inherit;
+}
+
+.far {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  color: white;
+  display: grid;
+  grid-template-rows: 1fr min-content min-content;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+
+.cli {
+  color: #CCC;
+}
+
+.button {
+  white-space: nowrap;
+  display: inline-block;
+}
+.button:before {
+  content: "[ ";
+}
+.button:after {
+  content: " ]";
+}
+.button.default:before {
+  content: "{ ";
+}
+.button.default:after {
+  content: " }";
+}
+
+.modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 2.4rem 4ch;
+  display: grid;
+  place-items: center;
+  z-index: 3;
+}
+.modal .dialog {
+  box-shadow: 2ch 1.2rem rgba(0, 0, 0, 0.8);
+  padding: 1.2rem 2ch;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  grid-template-columns: 1fr;
+}
+.modal .dialog .inner {
+  grid-area: 1/1/4/2;
+  margin: 0.6rem;
+  text-align: center;
+}
+.modal .dialog .inner > div {
+  padding: 0 1ch;
+}
+.modal .dialog.normal {
+  background-color: silver;
+  color: black;
+}
+.modal .dialog.normal .inner {
+  padding: 0.4466666667rem 0.3545454545ch;
+  border: 0.12rem solid black;
+  outline-offset: 0.12rem;
+  outline: solid 0.12rem black;
+}
+.modal .dialog.normal .title > span, .modal .dialog.normal .total > span {
+  background-color: silver;
+}
+.modal .dialog.normal .button.default {
+  background-color: teal;
+}
+.modal .dialog.alert {
+  background-color: maroon;
+  color: white;
+}
+.modal .dialog.alert .inner {
+  padding: 0.4466666667rem 0.3545454545ch;
+  border: 0.12rem solid white;
+  outline-offset: 0.12rem;
+  outline: solid 0.12rem white;
+}
+.modal .dialog.alert .title > span, .modal .dialog.alert .total > span {
+  background-color: maroon;
+}
+.modal .dialog.alert .button.default {
+  background-color: silver;
+  color: black;
+}
+.modal .dialog.select {
+  background-color: teal;
+  color: white;
+}
+.modal .dialog.select .inner {
+  padding: 0.4466666667rem 0.3545454545ch;
+  border: 0.12rem solid white;
+  outline-offset: 0.12rem;
+  outline: solid 0.12rem white;
+}
+.modal .dialog.select .title > span, .modal .dialog.select .total > span {
+  background-color: teal;
+}
+.modal .dialog.select .inner {
+  text-align: left;
+}
+.modal .dialog.select .inner > div {
+  padding-left: 4ch;
+}
+.modal .dialog.select .inner > div:hover {
+  background-color: black;
+}
+.modal .dialog.help {
+  background-color: teal;
+  color: black;
+  place-self: stretch;
+  padding: 0 0;
+}
+.modal .dialog.help .inner {
+  padding: 0.4466666667rem 0.3545454545ch;
+  border: 0.12rem solid black;
+  outline-offset: 0.12rem;
+  outline: solid 0.12rem black;
+}
+.modal .dialog.help .title > span, .modal .dialog.help .total > span {
+  background-color: teal;
+}
+.modal .dialog.help .inner {
+  text-align: left;
+}
+.modal .dialog.help .inner > div:first-child {
+  text-align: center;
+  color: white;
+}
+.modal .dialog.help .title {
+  color: black;
+  top: 0;
+}
+.modal .dialog.help ul {
+  list-style: none;
+}
+.modal .dialog.help ul li {
+  padding-left: 1ch;
+}
+.modal .dialog .title, .modal .dialog .total {
+  white-space: nowrap;
+  text-align: center;
+  padding: 0 2.5454545455ch 0 2.3545454545ch;
+  z-index: 1;
+  grid-area: 1/1/2/2;
+}
+.modal .dialog .title > span, .modal .dialog .total > span {
+  padding: 0 1ch;
+}
+.modal .dialog .total {
+  grid-area: 3/1/4/2;
+}
+.modal hr {
+  grid-column: 1/-1;
+}
+
+ul.func-buttons {
+  list-style: none;
+  display: grid;
+  grid-gap: 1ch;
+  grid-auto-flow: column;
+}
+ul.func-buttons > li {
+  counter-increment: li;
+  background-color: teal;
+  color: black;
+}
+ul.func-buttons > li:before {
+  content: counter(li);
+  background-color: black;
+  color: silver;
+}
+
+ul.main-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  list-style: none;
+  height: 1.2rem;
+  background-color: teal;
+  z-index: 2;
+  padding: 0 2ch;
+  opacity: 0;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+}
+ul.main-menu:focus-within {
+  opacity: 1;
+}
+ul.main-menu:focus-within > li {
+  padding: 0 2ch;
+  position: relative;
+  color: black;
+}
+ul.main-menu:focus-within > li:hover {
+  background-color: black;
+  color: white;
+}
+ul.main-menu:focus-within > li:hover .popup {
+  display: block;
+}
+ul.main-menu .popup {
+  box-shadow: 2ch 1.2rem rgba(0, 0, 0, 0.8);
+  display: none;
+  padding: 0.6333333333rem 0.5454545455ch;
+  position: absolute;
+  top: 1.2rem;
+  left: 0;
+  background-color: teal;
+  color: white;
+}
+ul.main-menu .popup > ul {
+  padding: 0.4466666667rem 0.3545454545ch;
+  border: 0.12rem solid white;
+  outline-offset: 0.12rem;
+  outline: solid 0.12rem white;
+  display: grid;
+  grid-template-columns: repeat(3, min-content);
+}
+ul.main-menu .popup > ul > li {
+  display: contents;
+  text-align: left;
+  white-space: nowrap;
+}
+ul.main-menu .popup > ul > li:hover > div {
+  background-color: black;
+  color: white;
+}
+ul.main-menu .popup > ul > li > div:nth-child(1) {
+  padding: 0 1ch 0 0.3545454545ch;
+}
+ul.main-menu .popup > ul > li > div:nth-child(3) {
+  padding: 0 1.3545454545ch 0 2ch;
+}
+ul.main-menu .popup > ul > li > hr {
+  grid-column: 1/-1;
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+.panels .panel {
+  background-color: navy;
+  color: cyan;
+  padding: 0.6333333333rem 0.5454545455ch;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+}
+.panels .panel .sort-char {
+  position: absolute;
+  left: 0.3545454545ch;
+  top: 0.4466666667rem;
+  color: yellow;
+}
+.panels .panel .inner {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr min-content;
+  gap: 0 0.12rem;
+  padding: 0.4466666667rem 0.3545454545ch;
+  border: 0.12rem solid cyan;
+  outline-offset: 0.12rem;
+  outline: solid 0.12rem cyan;
+  position: relative;
+}
+.panels .panel .list > div:focus {
+  background-color: teal;
+  color: black;
+}
+.panels .panel .list > div.dir {
+  color: white;
+}
+.panels .panel .list > div.exe {
+  color: lime;
+}
+.panels .panel .list > div.name {
+  color: yellow;
+  text-align: center;
+}
+.panels .panel .list:first-child {
+  border-right-style: solid;
+  border-right-width: 0.12rem;
+  border-right-color: inherit;
+}
+.panels .panel .list:nth-child(2) {
+  border-left-style: solid;
+  border-left-width: 0.12rem;
+  border-left-color: inherit;
+}
+.panels .panel .info {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  margin: 0 -0.3545454545ch;
+  padding: 0.4466666667rem 0.3545454545ch 0 0.3545454545ch;
+  border-top-style: solid;
+  border-top-width: 0.12rem;
+  border-top-color: inherit;
+}
+.panels .panel .title, .panels .panel .total {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 2.5454545455ch 0 2.3545454545ch;
+  margin: -0.6rem 0;
+  z-index: 1;
+  text-align: center;
+}
+.panels .panel .title span, .panels .panel .total span {
+  padding: 0 1ch;
+  background-color: navy;
+}
+.panels .panel:focus-within .title {
+  color: black;
+}
+.panels .panel:focus-within .title > span {
+  background-color: teal;
+}
+
+.test {
+  display: inline-block;
+  position: relative;
+  padding: 1.2rem 1ch;
+}
+
+.char-rect0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1ch;
+  height: 1.2rem;
+  border: solid red 1px;
+  box-sizing: border-box;
+}
+
+.char-rect1 {
+  position: absolute;
+  top: 1.2rem;
+  left: 1ch;
+  width: 1ch;
+  height: 1.2rem;
+  border: solid lime 1px;
+  box-sizing: border-box;
+}
+
+.char-rect2 {
+  position: absolute;
+  top: 2.4rem;
+  left: 2ch;
+  width: 1ch;
+  height: 1.2rem;
+  border: solid dodgerblue 1px;
+  box-sizing: border-box;
+}
+
+.char-rect3 {
+  position: absolute;
+  top: 3.6rem;
+  left: 3ch;
+  width: 1ch;
+  height: 1.2rem;
+  border: solid magenta 1px;
+  box-sizing: border-box;
+}
+
+.char-rect4 {
+  position: absolute;
+  top: 4.8rem;
+  left: 4ch;
+  width: 1ch;
+  height: 1.2rem;
+  border: solid yellow 1px;
+  box-sizing: border-box;
+}

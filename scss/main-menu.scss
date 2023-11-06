@@ -1,0 +1,79 @@
+@use 'includes' as *;
+
+ul.main-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  list-style: none;
+  height: $sy;
+  background-color: teal;
+  z-index: 2;
+  padding: 0 (2 * $sx);
+  opacity: 0;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+
+  &:focus-within {
+    opacity: 1;
+
+    > li {
+      padding: 0 (2 * $sx);
+      position: relative;
+      color: black;
+
+      &:hover {
+        background-color: black;
+        color: white;
+
+        .popup {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .popup {
+    @include popup-shadow;
+    display: none;
+    padding: $dy $dx;
+    position: absolute;
+    top: $sy;
+    left: 0;
+    background-color: teal;
+    color: white;
+
+    > ul {
+      @include double-border(white);
+      display: grid;
+      grid-template-columns: repeat(3, min-content);
+
+      > li {
+        display: contents;
+        text-align: left;
+        white-space: nowrap;
+
+        &:hover > div {
+          background-color: black;
+          color: white;
+        }
+
+        > div {
+          &:nth-child(1) {
+            padding: 0 $sx 0 $dxr;
+          }
+
+          &:nth-child(3) {
+            padding: 0 ($sx + $dxr) 0 (2 * $sx);
+          }
+        }
+
+        > hr {
+          grid-column: 1/-1;
+        }
+      }
+    }
+  }
+}
